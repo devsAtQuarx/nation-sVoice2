@@ -13,11 +13,8 @@ const app_drawer = resolve => {
   })
 }
 
-const app_profile = resolve => {
-  require.ensure(['@/components/app-main/app-profile'],()=>{
-      resolve(require('@/components/app-main/app-profile'))
-  })
-}
+
+
 
 
 export default [
@@ -29,10 +26,6 @@ export default [
   {
     path: '/app-drawer',
     component: app_drawer
-  },
-  {
-    path: '/app-profile',
-    component: app_profile
   }
 
 ]

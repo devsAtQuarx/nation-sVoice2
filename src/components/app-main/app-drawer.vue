@@ -1,9 +1,10 @@
 <template>
   <div>
 
-      <h4 @click="go_to_home()">Nation's Voice</h4>
-        <span @click="go_to_profile()" v-if="isLoggedIn">{{this.$store.state.app_drawer.userDetail.displayName}}</span>
+
+        <span  v-if="isLoggedIn">{{this.$store.state.app_drawer.userDetail.displayName}}</span>
           <img :src="this.$store.state.app_drawer.userDetail.photoURL" v-if="isLoggedIn"/>
+          <span v-if="!isLoggedIn">You Are Not LoggedIn</span>
           <login v-if="!isLoggedIn"></login>
           <logout v-else></logout>
 
@@ -29,14 +30,6 @@ export default{
 
   //methods
   methods:{
-    go_to_home(){
-      this.$router.push('/');
-
-    },
-    go_to_profile(){
-      this.$router.push('/app-profile');
-
-    },
     //mapMutations
     ...mapMutations([
       'fbLogIn',
@@ -56,7 +49,7 @@ export default{
   //beforeMount
   beforeMount(){
     this.$store.state.app_drawer.drawerOpen = true
-  
+
   },
   components:{
     login,
