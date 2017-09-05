@@ -16,6 +16,31 @@
 import app_header from '@/components/app-header'
 import {mapGetters} from 'vuex'
 import './assets/css/googleFont.css'
+import Firebase from 'firebase'
+import {db} from './firebase'
+var vm
+
+//onAuthStateChanged
+Firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    console.log("// User is signed in.")
+    vm.$store.state.app_drawer.isLoggedIn = true
+
+    // The signed-in user info
+  /* console.log(user)
+     console.log(user.uid)
+    console.log(user.email)
+    console.log(user.displayName)
+    console.log(user.photoURL)*/
+
+    vm.$store.state.app_drawer.userDetail=user
+    //console.log(vm.$store.state.userDetail)
+
+  } else {
+    console.log("// No user is signed in.")
+    vm.$store.state.app_drawer.isLoggedIn = false
+  }
+});
 
 export default {
   name: 'app',
@@ -28,8 +53,12 @@ export default {
   //
   computed:{
     ...mapGetters([
-
+      'isLoggedIn',
+      'userDetail',
     ])
+  },
+  beforeMount(){
+    vm = this
   }
 }
 </script>
