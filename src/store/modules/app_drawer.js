@@ -2,8 +2,10 @@
 
 //state
 const state = {
+
     drawerOpen : null,
-    isLoggedIn:false
+    isLoggedIn:false,
+    drawerOpen : null
 };
 
 //getters
