@@ -1,5 +1,5 @@
 <template>
-  <v-btn @click="fbLogIn();goBack()">
+  <v-btn @click="fbLogIn()">
     LogIn
   </v-btn>
 </template>
@@ -21,15 +21,11 @@
 
     //methods
     methods:{
-      goBack(){
-        this.$router.go(-1)
-      },
       //mapMutations
       ...mapMutations([
         'fbLogIn',
-
-      ]),
-    },
+      ])
+    }
 
   }
 </script>

@@ -8,18 +8,17 @@ const mutations = {
         Firebase.auth().getRedirectResult()
         .then(function(result) {
           if (result.credential) {
-            
 
             // This gives you a Facebook Access Token. You can use it to access the Facebook API.
             var token = result.credential.accessToken;
             //console.log(token);
             // ...
-
+          
           }
           // The signed-in user info.
           var user = result.user;
         }).catch(function(error) {
-            vm.$router.go(-1)
+
           // Handle Errors here.
           var errorCode = error.code;
           var errorMessage = error.message;
@@ -29,8 +28,6 @@ const mutations = {
           var credential = error.credential;
           // ...
         })
-        console.log("signedin");
-
 
       }
   }
