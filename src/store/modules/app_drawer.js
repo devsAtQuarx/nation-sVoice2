@@ -1,7 +1,7 @@
 
 //state
 const state = {
-    drawerOpen : null
+  drawerOpen : null
 };
 
 //getters

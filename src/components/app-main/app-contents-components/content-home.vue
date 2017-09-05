@@ -1,21 +1,217 @@
 <template>
   <div>
+    <v-flex xs12 sm8 offset-sm2>
 
+      <!-- newsArr -->
+      <v-card v-for="news in sortedNewsArr">
+        <v-card-media :src="news.urlToImage" height="55vh">
+        </v-card-media>
+        <v-card-title primary-title>
+          <div>
+            <h3 class="headline mb-0">{{news.title}}</h3>
+            <div>
+              {{news.description}}
+              <v-btn flat class="orange--text" :href="news.url">
+                See Detail
+              </v-btn>
+            </div>
+          </div>
+        </v-card-title>
+        <v-divider></v-divider>
+        <v-card-actions>
+
+        </v-card-actions>
+      </v-card>
+
+      <!--loadMoreNews-->
+      <infinite-loading
+        v-if="sortedNewsArr.length >= 3 && showLoader == true"
+        :on-infinite="onInfinite"
+        ref="infiniteLoading"
+        class = "infiniteLoading"
+      >
+      </infinite-loading>
+
+    </v-flex>
   </div>
 </template>
 
 <script>
-  export default{
-    //data
-    data(){
-      return{
+import {db} from  '../../../firebase'
+import {mapGetters} from 'vuex'
+import InfiniteLoading from 'vue-infinite-loading'
 
+export default{
+  //data
+  data(){
+    return{
+
+    }
+  },
+
+  //methods
+  methods:{
+
+    // 1__getNewsFromApi
+    getNewsFromApi(){
+      this.$http.get('https://newsapi.org/v1/articles?source=the-times-of-india&sortBy=latest&apiKey=b0a290260ac4478c98e35da0f5ca7d4a')
+      .then(response=>{
+        //console.log(response.body.articles)
+        this.pushNewsToFirebase(response.body.articles)
+      })
+      .catch(response=>{
+        console.log("network error") //planning to show catched data
+      })
+    },
+
+    //2__push data to firebase database
+    pushNewsToFirebase(fetchedNewsFromApi){
+      //console.log(fetchedNewsFromApi)
+
+
+      for(let i in fetchedNewsFromApi){
+        //discard ads, ads dont have .cms
+        if(fetchedNewsFromApi[i].url.lastIndexOf('.cms')!=-1){
+          //check if pushing duplicate news
+          db.ref('checkDuplicateNews/' +
+            fetchedNewsFromApi[i].url.slice(fetchedNewsFromApi[i].url.lastIndexOf('/')+1,
+              fetchedNewsFromApi[i].url.lastIndexOf('.'))).once('value',function(snapshot){
+            //this will be null if no duplicate is already present in db
+            //console.log(snapshot.val())
+            if(snapshot.val() == null){
+              //firebase setNews in db
+              db.ref('allNews/' + fetchedNewsFromApi[i].publishedAt).set(fetchedNewsFromApi[i])
+
+              //to check duplicate from api
+              db.ref('checkDuplicateNews/' +
+                fetchedNewsFromApi[i].url.slice(fetchedNewsFromApi[i].url.lastIndexOf('/')+1,
+                  fetchedNewsFromApi[i].url.lastIndexOf('.'))).set(fetchedNewsFromApi[i])
+            }
+          })
+        }
+      }
+
+      this.retrievNewsFromFirebase()
+
+    },
+
+    //3__retrievNewsFromFirebase - 1st Time newsFetch
+    retrievNewsFromFirebase(){
+      let vm = this
+
+      db.ref('allNews/').limitToLast(3).once('value',function(snapshot){
+        //console.log(snapshot.val())
+
+        vm.showOnDom(snapshot.val())
+
+      })
+    },
+
+    //showOnDom
+    showOnDom(retrievedNews){
+      //firebase returns object, push/convert it to array to show in DOM
+      for(let i in retrievedNews){
+        //console.log(i+" "+retrievedNews[i])
+
+        //bind into object to push into arr of store
+        let retrievedNewsObj = {
+          key : i,
+          title : retrievedNews[i].title,
+          description : retrievedNews[i].description,
+          url : retrievedNews[i].url,
+          urlToImage : retrievedNews[i].urlToImage
+        }
+
+        //console.log(newsObj)
+
+        //console.log(vm.$store.state.content_home.newArrHome)
+        //push to store newsArrStore
+
+        this.$store.state.content_home.newsArr.push(retrievedNewsObj)
+      }
+
+    },
+
+    //loadMore
+    loadMoreNews(){
+      let vm = this
+
+      this.$store.state.content_home.c += 2 //currently 3 in arr, show 2(last one in arr) more
+        //on loadMoreNews
+
+      //check if ended
+      if(this.$store.state.content_home.newsArr[this.$store.state.content_home.c]
+          != undefined ){
+
+        //load 3 more
+        db.ref('allNews/').orderByKey()
+        .endAt(this.$store.state.content_home.newsArr[this.$store.state.content_home.c].key)
+        .limitToLast(3).on('value',function(snapshot){ //
+          console.log(Object.keys(snapshot.val()).length)
+
+          let tempLoadedNews = {}
+
+          //check & remove last Object => need better method
+          for(let i in snapshot.val()){
+            //console.log(i+" "+snapshot.val())
+            if(i == vm.$store.state.content_home.newsArr[vm.$store.state.content_home.c].key){
+              //do nothing
+            }else{
+              tempLoadedNews[i] = snapshot.val()[i] //copy
+            }
+          }
+
+          //call showOnDom
+          vm.showOnDom(tempLoadedNews)
+          vm.$refs.infiniteLoading.$emit('$InfiniteLoading:loaded')
+        })
+
+      }else{
+        //stop loader
+        //vm.$refs.infiniteLoading.$emit('$InfiniteLoading:loaded')
+        this.$store.state.content_home.showLoader = false
+        //console.log("nothing to load more !")
       }
     },
 
-    //methdos
-    methods:{
-      
+    //onInfinite scroll => loadMoreNews
+    onInfinite() {
+        this.loadMoreNews()
     }
+
+  },
+
+  //beforeMount
+  beforeMount(){
+    //if undefined
+    //console.log(this.$store.state.content_home.newsArr)
+    if(this.$store.state.content_home.newsArr.length == 0){
+      //console.log("call")
+      this.getNewsFromApi()
+    }
+  },
+
+  //computed
+  computed:{
+    ...mapGetters([
+      'newsArr','showLoader'
+    ]),
+    sortedNewsArr(){
+      //sort array
+      function compare(a,b) {
+        if (a.key > b.key)
+          return -1;
+        if (a.key < b.key)
+          return 1;
+        return 0;
+      }
+      return this.$store.state.content_home.newsArr.sort(compare);
+    }
+  },
+
+  //components
+  components: {
+    InfiniteLoading,
   }
+}
 </script>
