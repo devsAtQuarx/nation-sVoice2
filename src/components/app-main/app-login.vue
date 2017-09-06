@@ -1,7 +1,10 @@
 <template>
-  <v-btn @click="fbLogIn()">
-    LogIn
-  </v-btn>
+  <div>
+    <span>You Are Not LoggedIn</span>
+    <v-btn @click="fbLogIn();logged_in_page()">
+      LogIn
+    </v-btn>
+</div>
 </template>
 <script>
 //  import {mapGetters} from 'vuex'
@@ -21,6 +24,9 @@
 
     //methods
     methods:{
+      logged_in_page(){
+        this.$router.push('/app-profile')
+      },
       //mapMutations
       ...mapMutations([
         'fbLogIn',

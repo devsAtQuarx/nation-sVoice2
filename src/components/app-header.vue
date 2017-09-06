@@ -4,18 +4,17 @@
     <!-- drawer-con-->
     <div class="drawer-icon"
       @click="openDrawer"
-      v-show="!drawerOpen"
-    >
+      >
       <i class="material-icons app-drawer-icon">menu</i>
     </div>
 
-    <!-- back-->
+    <!-- back>
     <div class="drawer-icon"
       @click="closeDrawer"
       v-show="drawerOpen"
     >
       <i class="material-icons">keyboard_arrow_left</i>
-    </div>
+    </div-->
 
   </div>
 </template>
@@ -39,19 +38,26 @@ export default {
 
     //openDrawer
     openDrawer(){
-      this.$router.push('/app-drawer')
+      if(this.$store.state.app_profile.isLoggedIn==true){
+        this.$router.push('/app-profile')
+      }
+      else {
+        this.$router.push('/app-login')
+      }
+    //  this.$router.push('/app-drawer')
+
     },
 
     //closeDrawer
-    closeDrawer(){
+    /*closeDrawer(){
       this.$router.go(-1)
-    },
+    },*/
   },
 
   //computed
   computed:{
     ...mapGetters([
-      'drawerOpen'
+      'isLoggedIn'
     ])
   }
 }

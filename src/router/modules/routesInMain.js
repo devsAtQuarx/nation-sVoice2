@@ -7,9 +7,14 @@ const app_contents = resolve => {
   })
 }
 
-const app_drawer = resolve => {
-  require.ensure(['@/components/app-main/app-drawer'],()=>{
-      resolve(require('@/components/app-main/app-drawer'))
+const app_profile = resolve => {
+  require.ensure(['@/components/app-main/app-profile'],()=>{
+      resolve(require('@/components/app-main/app-profile'))
+  })
+}
+const app_login = resolve => {
+  require.ensure(['@/components/app-main/app-login'],()=>{
+      resolve(require('@/components/app-main/app-login'))
   })
 }
 
@@ -24,8 +29,12 @@ export default [
     children
   },
   {
-    path: '/app-drawer',
-    component: app_drawer
+    path: '/app-profile',
+    component: app_profile
+  },
+  {
+    path: '/app-login',
+    component: app_login
   }
 
 ]

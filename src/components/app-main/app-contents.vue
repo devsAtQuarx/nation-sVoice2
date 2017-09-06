@@ -9,7 +9,7 @@ export default{
 
   //beforeMount
   beforeMount(){
-    this.$store.state.app_drawer.drawerOpen = false
+    this.$store.state.app_profile.drawerOpen = false
   }
 }
 </script>

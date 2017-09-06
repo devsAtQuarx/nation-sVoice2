@@ -1,5 +1,5 @@
 
-
+import Firebase from 'firebase'
 //state
 const state = {
 
@@ -21,7 +21,19 @@ const getters = {
   }
 };
 
+const mutations = {
+
+      fbLogOut(){
+        Firebase.auth().signOut().then(function() {
+        // Sign-out successful.
+        }).catch(function(error) {
+        // An error happened.
+        });
+      }
+};
+
 export default {
   state,
   getters,
+  mutations
 };

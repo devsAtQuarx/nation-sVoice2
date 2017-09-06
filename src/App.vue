@@ -24,7 +24,7 @@ var vm
 Firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     console.log("// User is signed in.")
-    vm.$store.state.app_drawer.isLoggedIn = true
+    vm.$store.state.app_profile.isLoggedIn = true
 
     // The signed-in user info
   /* console.log(user)
@@ -33,12 +33,12 @@ Firebase.auth().onAuthStateChanged(function(user) {
     console.log(user.displayName)
     console.log(user.photoURL)*/
 
-    vm.$store.state.app_drawer.userDetail=user
+    vm.$store.state.app_profile.userDetail=user
     //console.log(vm.$store.state.userDetail)
 
   } else {
     console.log("// No user is signed in.")
-    vm.$store.state.app_drawer.isLoggedIn = false
+    vm.$store.state.app_profile.isLoggedIn = false
   }
 });
 
