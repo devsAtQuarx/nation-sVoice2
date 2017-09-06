@@ -3,7 +3,7 @@
 
 
         <span >{{userDetail.displayName}}</span>
-        <img :src="userDetail.photoURL""/>
+        <img :src="userDetail.photoURL">
 
         <v-btn @click="fbLogOut();goBack()">
           LogOut

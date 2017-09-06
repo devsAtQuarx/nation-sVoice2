@@ -1,7 +1,7 @@
 <template>
   <div>
     <span>You Are Not LoggedIn</span>
-    <v-btn @click="fbLogIn();logged_in_page()">
+    <v-btn @click="fbLogIn();goBack()">
       LogIn
     </v-btn>
 </div>
@@ -24,8 +24,8 @@
 
     //methods
     methods:{
-      logged_in_page(){
-        this.$router.push('/app-profile')
+      goBack(){
+        this.$router.go(-1)
       },
       //mapMutations
       ...mapMutations([
