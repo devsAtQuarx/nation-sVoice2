@@ -4,11 +4,11 @@ import Vue from 'vue'
 import VueFire from 'vuefire'
 import App from './App'
 import router from './router'
-import './assets/css/vuetify.min.css'
 import Vuetify from 'vuetify'
 import {store} from './store'
 import VueResource from 'vue-resource'
-//import router from 'vue-router'
+import './assets/cssLib/vuetify.min.css'
+import './assets/cssLib/googleFont.css'
 
 Vue.use(VueFire)
 Vue.use(Vuetify)

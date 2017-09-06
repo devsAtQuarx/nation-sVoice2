@@ -15,7 +15,6 @@
 <script>
 import app_header from '@/components/app-header'
 import {mapGetters} from 'vuex'
-import './assets/css/googleFont.css'
 import Firebase from 'firebase'
 import {db} from './firebase'
 var vm

@@ -18,23 +18,17 @@
 
       <!-- newsArr -->
       <v-card v-for="news in sortedNewsArr">
-        <v-card-media :src="news.urlToImage" height="55vh">
-        </v-card-media>
-        <v-card-title primary-title>
-          <div>
-            <h3 class="headline mb-0">{{news.title}}</h3>
-            <div>
-              {{news.description}}
-              <v-btn flat class="orange--text" :href="news.url">
-                See Detail
-              </v-btn>
-            </div>
-          </div>
-        </v-card-title>
-        <v-divider></v-divider>
-        <v-card-actions>
 
-        </v-card-actions>
+        <!-- cardContent -->
+        <home-newsCardContents :news="news"></home-newsCardContents>
+
+        <!-- divider line -->
+        <v-divider></v-divider>
+
+        <!-- cardActions -->
+        <v-card-actions></v-card-actions>
+
+
       </v-card>
 
       <!--loadMoreNews-->
@@ -55,6 +49,8 @@ import {db} from  '../../firebase'
 import {mapGetters} from 'vuex'
 import InfiniteLoading from 'vue-infinite-loading'
 import '../../assets/css/appHome.css'
+import home_newsCardContents from './home-newsCard/home-newsCardContents'
+
 
 export default{
   //data
@@ -122,30 +118,6 @@ export default{
       })
     },
 
-    //showOnDom
-    showOnDom(retrievedNews){
-      //firebase returns object, push/convert it to array to show in DOM
-      for(let i in retrievedNews){
-        //console.log(i+" "+retrievedNews[i])
-
-        //bind into object to push into arr of store
-        let retrievedNewsObj = {
-          key : i,
-          title : retrievedNews[i].title,
-          description : retrievedNews[i].description,
-          url : retrievedNews[i].url,
-          urlToImage : retrievedNews[i].urlToImage
-        }
-
-        //console.log(newsObj)
-
-        //console.log(vm.$store.state.app_home.newArrHome)
-        //push to store newsArrStore
-
-        this.$store.state.app_home.newsArr.push(retrievedNewsObj)
-      }
-
-    },
 
     //loadMore
     loadMoreNews(){
@@ -187,6 +159,31 @@ export default{
         this.$store.state.app_home.showLoader = false
         //console.log("nothing to load more !")
       }
+    },
+
+    //showOnDom
+    showOnDom(retrievedNews){
+      //firebase returns object, push/convert it to array to show in DOM
+      for(let i in retrievedNews){
+        //console.log(i+" "+retrievedNews[i])
+
+        //bind into object to push into arr of store
+        let retrievedNewsObj = {
+          key : i,
+          title : retrievedNews[i].title,
+          description : retrievedNews[i].description,
+          url : retrievedNews[i].url,
+          urlToImage : retrievedNews[i].urlToImage
+        }
+
+        //console.log(newsObj)
+
+        //console.log(vm.$store.state.app_home.newArrHome)
+        //push to store newsArrStore
+
+        this.$store.state.app_home.newsArr.push(retrievedNewsObj)
+      }
+
     },
 
     //onInfinite scroll => loadMoreNews
@@ -250,6 +247,8 @@ export default{
   //components
   components: {
     InfiniteLoading,
-  }
+    'home-newsCardContents' : home_newsCardContents
+  },
+
 }
 </script>
