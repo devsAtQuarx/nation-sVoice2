@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import {db} from  '../../../firebase'
+import {db} from  '../../firebase'
 import {mapGetters} from 'vuex'
 import InfiniteLoading from 'vue-infinite-loading'
 
@@ -124,10 +124,10 @@ export default{
 
         //console.log(newsObj)
 
-        //console.log(vm.$store.state.content_home.newArrHome)
+        //console.log(vm.$store.state.app_home.newArrHome)
         //push to store newsArrStore
 
-        this.$store.state.content_home.newsArr.push(retrievedNewsObj)
+        this.$store.state.app_home.newsArr.push(retrievedNewsObj)
       }
 
     },
@@ -136,16 +136,16 @@ export default{
     loadMoreNews(){
       let vm = this
 
-      this.$store.state.content_home.c += 2 //currently 3 in arr, show 2(last one in arr) more
+      this.$store.state.app_home.c += 2 //currently 3 in arr, show 2(last one in arr) more
         //on loadMoreNews
 
       //check if ended
-      if(this.$store.state.content_home.newsArr[this.$store.state.content_home.c]
+      if(this.$store.state.app_home.newsArr[this.$store.state.app_home.c]
           != undefined ){
 
         //load 3 more
         db.ref('allNews/').orderByKey()
-        .endAt(this.$store.state.content_home.newsArr[this.$store.state.content_home.c].key)
+        .endAt(this.$store.state.app_home.newsArr[this.$store.state.app_home.c].key)
         .limitToLast(3).on('value',function(snapshot){ //
           console.log(Object.keys(snapshot.val()).length)
 
@@ -154,7 +154,7 @@ export default{
           //check & remove last Object => need better method
           for(let i in snapshot.val()){
             //console.log(i+" "+snapshot.val())
-            if(i == vm.$store.state.content_home.newsArr[vm.$store.state.content_home.c].key){
+            if(i == vm.$store.state.app_home.newsArr[vm.$store.state.app_home.c].key){
               //do nothing
             }else{
               tempLoadedNews[i] = snapshot.val()[i] //copy
@@ -169,7 +169,7 @@ export default{
       }else{
         //stop loader
         //vm.$refs.infiniteLoading.$emit('$InfiniteLoading:loaded')
-        this.$store.state.content_home.showLoader = false
+        this.$store.state.app_home.showLoader = false
         //console.log("nothing to load more !")
       }
     },
@@ -184,8 +184,8 @@ export default{
   //beforeMount
   beforeMount(){
     //if undefined
-    //console.log(this.$store.state.content_home.newsArr)
-    if(this.$store.state.content_home.newsArr.length == 0){
+    //console.log(this.$store.state.app_home.newsArr)
+    if(this.$store.state.app_home.newsArr.length == 0){
       //console.log("call")
       this.getNewsFromApi()
     }
@@ -205,7 +205,7 @@ export default{
           return 1;
         return 0;
       }
-      return this.$store.state.content_home.newsArr.sort(compare);
+      return this.$store.state.app_home.newsArr.sort(compare);
     }
   },
 
