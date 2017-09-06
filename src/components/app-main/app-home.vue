@@ -26,7 +26,9 @@
         <v-divider></v-divider>
 
         <!-- cardActions -->
-        <v-card-actions></v-card-actions>
+        <v-card-actions>
+          <home-newsCardActions></home-newsCardActions>
+        </v-card-actions>
 
 
       </v-card>
@@ -50,6 +52,7 @@ import {mapGetters} from 'vuex'
 import InfiniteLoading from 'vue-infinite-loading'
 import '../../assets/css/appHome.css'
 import home_newsCardContents from './home-newsCard/home-newsCardContents'
+import home_newsCardActions from './home-newsCard/home-newsCardActions'
 
 
 export default{
@@ -247,7 +250,8 @@ export default{
   //components
   components: {
     InfiniteLoading,
-    'home-newsCardContents' : home_newsCardContents
+    'home-newsCardContents' : home_newsCardContents,
+    'home-newsCardActions' : home_newsCardActions
   },
 
 }

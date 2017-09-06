@@ -6,7 +6,7 @@ import app_login from './modules/app_login'
 import app_profile from './modules/app_profile'
 import app_home from './modules/app_home'
 
-import home_newsCardContents from './modules/home_newsCard/home_newsCardContents'
+import home_newsCardActions from './modules/home_newsCard/home_newsCardActions'
 
 
 Vue.use(Vuex)
@@ -18,7 +18,7 @@ export const store = new Vuex.Store({
     app_login,
     app_home,
 
-    home_newsCardContents,
+    home_newsCardActions,
     //
   }
 })

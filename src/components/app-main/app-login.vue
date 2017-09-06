@@ -7,40 +7,37 @@
 </div>
 </template>
 <script>
-//  import {mapGetters} from 'vuex'
-  import {mapMutations} from 'vuex'
-  //import Firebase from 'firebase'
+import {mapMutations} from 'vuex'
 
+//onAuthStateChanged
 
-  //onAuthStateChanged
+export default{
+  //data
+  data(){
+    return {
 
-  export default{
-    //data
-    data(){
-      return {
-
-      }
-    },
-
-    //methods
-    methods:{
-      goBack(){
-        this.$router.go(-1)
-      },
-      //mapMutations
-      ...mapMutations([
-        'fbLogIn',
-      ])
-    },
-
-    //beforeMount
-    beforeMount(){
-      //console.log("app-login")
-
-      //backButton v/s Toolbar
-      this.$store.state.app_header.showBackBut = true
-      this.$store.state.app_header.showToolbar = false
     }
+  },
 
+  //methods
+  methods:{
+    goBack(){
+      this.$router.go(-1)
+    },
+    //mapMutations
+    ...mapMutations([
+      'fbLogIn',
+    ])
+  },
+
+  //beforeMount
+  beforeMount(){
+    //console.log("app-login")
+
+    //backButton v/s Toolbar
+    this.$store.state.app_header.showBackBut = true
+    this.$store.state.app_header.showToolbar = false
   }
+
+}
 </script>
