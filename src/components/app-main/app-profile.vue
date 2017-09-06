@@ -29,23 +29,38 @@ export default{
   },
 
   methods:{
-    goBack(){
-      this.$router.go(-1)
-    },
+
     //mapMutations
     ...mapMutations([
       'fbLogOut',
 
     ]),
+
+    //goBack
+    goBack(){
+      this.$router.go(-1)
+    }
+
   },
 
   //computed
   computed:{
     ...mapGetters([
-      'isLoggedIn',
-      'userDetail',
+      'isLoggedIn', 'userDetail'
     ])
   },
+
+  //beforeMount
+  beforeMount(){
+    //console.log("app-profile")
+
+    //backButton v/s Toolbar
+    this.$store.state.app_header.showBackBut = true
+    this.$store.state.app_header.showToolbar = true
+
+    //headerTitle
+    this.$store.state.app_header.headerTitle = "Your Profile"
+  }
 
 }
 </script>

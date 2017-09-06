@@ -1,12 +1,22 @@
 <template>
   <div class="app-header">
 
-    <!-- drawer-icon-->
-    <div class="drawer-icon"
-      @click="openDrawer"
-      >
-      <i class="material-icons app-drawer-icon">menu</i>
+    <!-- back-icon-->
+    <div class="back-icon"
+      @click="goBack"
+      v-show="showBackBut"
+    >
+      <i class="material-icons back-icon-icon">keyboard_arrow_left</i>
     </div>
+
+    <!-- header -->
+    <v-toolbar
+      class="white"
+      light dense
+      v-show="showToolbar"
+    >
+      <span class="header-text">{{headerTitle}}</span>
+    </v-toolbar>
 
   </div>
 </template>
@@ -28,16 +38,9 @@ export default {
   //methods
   methods:{
 
-    //openDrawer
-    openDrawer(){
-
-      if(this.$store.state.app_profile.isLoggedIn==true){
-        this.$router.push('/app-profile')
-      }
-      else {
-        this.$router.push('/app-login')
-      }
-
+    //goBack
+    goBack(){
+      this.$router.go(-1)
     }
 
   },
@@ -45,7 +48,7 @@ export default {
   //computed
   computed:{
     ...mapGetters([
-      'isLoggedIn'
+      'isLoggedIn', 'showBackBut', 'showToolbar', 'headerTitle'
     ])
   }
 }

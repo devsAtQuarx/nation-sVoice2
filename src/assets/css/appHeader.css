@@ -1,9 +1,15 @@
-.drawer-icon{
+.back-icon{
   position: fixed;
   top: 10px;
   left: 10px;
   z-index:10;
 }
-.app-drawer-icon{
+.back-icon-icon{
   margin-left:5px;
+}
+
+.header-text{
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
 }

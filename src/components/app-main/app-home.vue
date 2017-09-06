@@ -1,5 +1,19 @@
 <template>
   <div>
+
+    <!-- drawer-icon-->
+    <v-btn
+      fab
+      dark
+      small
+      class="blue drawer-icon"
+      @click="openDrawer"
+    >
+      <v-icon dark v-if="isLoggedIn">person</v-icon>
+      <v-icon dark v-else>person_add</v-icon>
+    </v-btn>
+
+    <!-- card in flex -->
     <v-flex xs12 sm8 offset-sm2>
 
       <!-- newsArr -->
@@ -40,6 +54,7 @@
 import {db} from  '../../firebase'
 import {mapGetters} from 'vuex'
 import InfiniteLoading from 'vue-infinite-loading'
+import '../../assets/css/appHome.css'
 
 export default{
   //data
@@ -147,7 +162,7 @@ export default{
         db.ref('allNews/').orderByKey()
         .endAt(this.$store.state.app_home.newsArr[this.$store.state.app_home.c].key)
         .limitToLast(3).on('value',function(snapshot){ //
-          console.log(Object.keys(snapshot.val()).length)
+          //console.log(Object.keys(snapshot.val()).length)
 
           let tempLoadedNews = {}
 
@@ -177,24 +192,47 @@ export default{
     //onInfinite scroll => loadMoreNews
     onInfinite() {
         this.loadMoreNews()
-    }
+    },
+
+    //openDrawer
+    openDrawer(){
+
+      //isLoggedIn
+      if(this.$store.state.app_profile.isLoggedIn==true){
+        this.$router.push('/app-profile')
+      }else { //!isLoggedIn
+        this.$router.push('/app-login')
+      }
+
+    },
 
   },
 
   //beforeMount
   beforeMount(){
+    //console.log("app-home")
+
     //if undefined
     //console.log(this.$store.state.app_home.newsArr)
     if(this.$store.state.app_home.newsArr.length == 0){
       //console.log("call")
       this.getNewsFromApi()
     }
+
+    //backButton v/s Toolbar
+    this.$store.state.app_header.showBackBut = false
+    this.$store.state.app_header.showToolbar = true
+
+    //headerTitle
+    //console.log(this.$store.state.app_header.headerTitle)
+    this.$store.state.app_header.headerTitle = "Nation's Voice"
+    //console.log(this.$store.state.app_header.headerTitle)
   },
 
   //computed
   computed:{
     ...mapGetters([
-      'newsArr','showLoader'
+      'newsArr','showLoader', 'isLoggedIn'
     ]),
     sortedNewsArr(){
       //sort array

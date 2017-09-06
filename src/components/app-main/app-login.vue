@@ -31,6 +31,15 @@
       ...mapMutations([
         'fbLogIn',
       ])
+    },
+
+    //beforeMount
+    beforeMount(){
+      //console.log("app-login")
+
+      //backButton v/s Toolbar
+      this.$store.state.app_header.showBackBut = true
+      this.$store.state.app_header.showToolbar = false
     }
 
   }
