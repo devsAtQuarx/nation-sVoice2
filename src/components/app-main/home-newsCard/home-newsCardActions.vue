@@ -14,7 +14,14 @@
       </v-icon>
     </v-btn-->
 
-    <v-btn small primary dark flat class="comments-but" >
+    <v-btn
+      small
+      primary
+      dark
+      flat
+      class="comments-but"
+      @click="goToSpecNewsComments(news)"
+    >
       <v-icon class="grey--text comments-icon">
         chat_bubble_outline
       </v-icon>
@@ -38,17 +45,19 @@ import '../../../assets/css/appHomeNewsCard/homeNewsCardActions.css'
 
 
 export default{
+
+  //props
+  props:['news'],
+
+  //data
   data(){
     return {
 
     }
   },
-  methods:{
 
-    //goToPetitions
-    goToPetitions(){
-      this.$router.push('/app-petitions')
-    },
+  //methods
+  methods:{
 
     //shareNews
     shareNews(){
@@ -61,6 +70,11 @@ export default{
         console.log("2")
       });
 
+    },
+
+    //goToSpecNewsComments
+    goToSpecNewsComments(news){
+      this.$router.push('/app-specNewsComments/' + news.key)
     }
   }
 }

@@ -27,7 +27,7 @@
         <!-- cardActions -->
         <v-card-actions class="card-action-div">
           <button @click="goToSpecNews(news)">specNews</button>
-          <home-newsCardActions></home-newsCardActions>
+          <home-newsCardActions :news="news"></home-newsCardActions>
         </v-card-actions>
 
 
@@ -66,7 +66,7 @@ export default{
   //methods
   methods:{
 
-    //goToSpecNews
+    //goTo1SpecNews
     goToSpecNews(news){
       console.log(news.key)
       this.$router.push('app-specNews/'+ news.key)
