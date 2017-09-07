@@ -16,7 +16,8 @@ Vue.use(Vuetify)
 Vue.use(VueResource)
 
 Vue.config.productionTip = false
-
+function FBfun(path) {
+  setTimeout(function() {
 window.fbAsyncInit = function() {
     FB.init({
       appId      : '1822465887769751',
@@ -33,9 +34,11 @@ window.fbAsyncInit = function() {
      js.src = "//connect.facebook.net/en_US/sdk.js";
      fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
+    FB.XFBML.parse();
+  }, 100);
+}
 
-
-
+  
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
