@@ -26,6 +26,7 @@
 
         <!-- cardActions -->
         <v-card-actions class="card-action-div">
+          <button @click="goToSpecNews(news)">specNews</button>
           <home-newsCardActions></home-newsCardActions>
         </v-card-actions>
 
@@ -65,6 +66,12 @@ export default{
   //methods
   methods:{
 
+    //goToSpecNews
+    goToSpecNews(news){
+      console.log(news.key)
+      this.$router.push('app-specNews/'+ news.key)
+    },
+
     // 1__getNewsFromApi
     getNewsFromApi(){
       this.$http.get('https://newsapi.org/v1/articles?source=the-times-of-india&sortBy=latest&apiKey=b0a290260ac4478c98e35da0f5ca7d4a')
@@ -83,6 +90,12 @@ export default{
 
 
       for(let i in fetchedNewsFromApi){
+        //if(fetchedNewsFromApi[i].author != null)
+          //console.log(fetchedNewsFromApi[i].author)
+
+          //if(fetchedNewsFromApi[i].publishedAt != null)
+            console.log("publishedAt => " + fetchedNewsFromApi[i].publishedAt)
+
         //discard ads, ads dont have .cms
         if(fetchedNewsFromApi[i].url.lastIndexOf('.cms')!=-1 &&
           fetchedNewsFromApi[i].publishedAt != null &&
@@ -100,7 +113,7 @@ export default{
               //to check duplicate from api
               db.ref('checkDuplicateNews/' +
                 fetchedNewsFromApi[i].url.slice(fetchedNewsFromApi[i].url.lastIndexOf('/')+1,
-                  fetchedNewsFromApi[i].url.lastIndexOf('.'))).set(fetchedNewsFromApi[i])
+                  fetchedNewsFromApi[i].url.lastIndexOf('.'))).set(fetchedNewsFromApi[i].publishedAt)
             }
           })
         }

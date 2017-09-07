@@ -23,6 +23,12 @@ const app_comments = resolve => {
   })
 }
 
+const app_specNews = resolve => {
+  require.ensure(['@/components/app-main/app-specNews'],()=>{
+    resolve(require('@/components/app-main/app-specNews'))
+  })
+}
+
 export default [
 
   {
@@ -40,6 +46,10 @@ export default [
   {
     path: '/app-comments',
     component: app_comments
+  },
+  {
+    path: '/app-specNews/:id',
+    component: app_specNews
   }
 
 ]

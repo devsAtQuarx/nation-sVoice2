@@ -5,6 +5,7 @@ import app_header from './modules/app_header'
 import app_login from './modules/app_login'
 import app_profile from './modules/app_profile'
 import app_home from './modules/app_home'
+import app_specNews from './modules/app_specNews'
 
 import home_newsCardActions from './modules/home_newsCard/home_newsCardActions'
 
@@ -17,6 +18,7 @@ export const store = new Vuex.Store({
     app_profile,
     app_login,
     app_home,
+    app_specNews,
 
     home_newsCardActions,
     //
