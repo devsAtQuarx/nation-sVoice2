@@ -1,6 +1,9 @@
 <template>
   <div>
 
+
+    <button @click="shareNews()">share</button>
+
     <v-btn small primary dark flat class="mark-true-but" >
       <v-icon class="grey--text mark-true-icon">
         check
@@ -19,6 +22,7 @@
       </v-icon>
     </v-btn>
 
+
   </div>
 </template>
 
@@ -32,8 +36,16 @@ export default{
     }
   },
   methods:{
+
+    //goToPetitions
     goToPetitions(){
       this.$router.push('/app-petitions')
+    },
+
+    //shareNews
+    shareNews(){
+
+
     }
   }
 }

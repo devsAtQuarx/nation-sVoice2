@@ -10,6 +10,7 @@ import VueResource from 'vue-resource'
 import './assets/cssLib/vuetify.min.css'
 import './assets/cssLib/googleFont.css'
 
+
 Vue.use(VueFire)
 Vue.use(Vuetify)
 Vue.use(VueResource)

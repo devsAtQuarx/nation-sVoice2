@@ -69,7 +69,7 @@ export default{
     getNewsFromApi(){
       this.$http.get('https://newsapi.org/v1/articles?source=the-times-of-india&sortBy=latest&apiKey=b0a290260ac4478c98e35da0f5ca7d4a')
       .then(response=>{
-        //console.log(response.body.articles)
+        console.log(response.body.articles)
         this.pushNewsToFirebase(response.body.articles)
       })
       .catch(response=>{
@@ -85,7 +85,8 @@ export default{
       for(let i in fetchedNewsFromApi){
         //discard ads, ads dont have .cms
         if(fetchedNewsFromApi[i].url.lastIndexOf('.cms')!=-1 &&
-          fetchedNewsFromApi[i].publishedAt != null){
+          fetchedNewsFromApi[i].publishedAt != null &&
+          fetchedNewsFromApi[i].publishedAt.lastIndexOf('.')==-1){
           //check if pushing duplicate news
           db.ref('checkDuplicateNews/' +
             fetchedNewsFromApi[i].url.slice(fetchedNewsFromApi[i].url.lastIndexOf('/')+1,
