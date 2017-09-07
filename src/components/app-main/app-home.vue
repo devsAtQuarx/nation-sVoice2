@@ -30,8 +30,8 @@
           <home-newsCardActions :news="news"></home-newsCardActions>
         </v-card-actions>
 
-
       </v-card>
+
 
       <!--loadMoreNews-->
       <infinite-loading
