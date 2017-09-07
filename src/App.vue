@@ -26,8 +26,8 @@ Firebase.auth().onAuthStateChanged(function(user) {
     vm.$store.state.app_profile.isLoggedIn = true
 
     // The signed-in user info
-  /* console.log(user)
-     console.log(user.uid)
+   console.log(user)
+/*     console.log(user.uid)
     console.log(user.email)
     console.log(user.displayName)
     console.log(user.photoURL)*/

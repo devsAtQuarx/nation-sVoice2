@@ -25,7 +25,7 @@
         <v-divider></v-divider>
 
         <!-- cardActions -->
-        <v-card-actions>
+        <v-card-actions class="card-action-div">
           <home-newsCardActions></home-newsCardActions>
         </v-card-actions>
 
