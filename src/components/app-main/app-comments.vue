@@ -1,7 +1,7 @@
 <template>
   <div>
     petitions
-    
+
   </div>
 </template>
 
