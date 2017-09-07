@@ -1,0 +1,23 @@
+.mark-true-but{
+  min-width: 0px;
+  margin-left: -5px;
+}
+.mark-true-icon{
+  font-size: 27px;
+}
+
+.spam-but{
+  min-width: 0px;
+  margin-left: -17px;
+}
+.spam-icon{
+  font-size:21px;
+}
+
+.comments-but{
+  min-width: 0px;
+  margin-left: -15px;
+}
+.comments-icon{
+  font-size:21px;
+}

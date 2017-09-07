@@ -5,8 +5,7 @@
     <v-btn
       fab
       dark
-      small
-      class="blue drawer-icon"
+      class="indigo drawer-icon"
       @click="openDrawer"
     >
       <v-icon dark v-if="isLoggedIn">person</v-icon>
@@ -85,7 +84,8 @@ export default{
 
       for(let i in fetchedNewsFromApi){
         //discard ads, ads dont have .cms
-        if(fetchedNewsFromApi[i].url.lastIndexOf('.cms')!=-1){
+        if(fetchedNewsFromApi[i].url.lastIndexOf('.cms')!=-1 &&
+          fetchedNewsFromApi[i].publishedAt != null){
           //check if pushing duplicate news
           db.ref('checkDuplicateNews/' +
             fetchedNewsFromApi[i].url.slice(fetchedNewsFromApi[i].url.lastIndexOf('/')+1,

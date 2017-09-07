@@ -17,6 +17,12 @@ const app_profile = resolve => {
   })
 }
 
+const app_comments = resolve => {
+  require.ensure(['@/components/app-main/app-comments'],()=>{
+    resolve(require('@/components/app-main/app-comments'))
+  })
+}
+
 export default [
 
   {
@@ -30,6 +36,10 @@ export default [
   {
     path: '/app-profile',
     component: app_profile
+  },
+  {
+    path: '/app-comments',
+    component: app_comments
   }
 
 ]
