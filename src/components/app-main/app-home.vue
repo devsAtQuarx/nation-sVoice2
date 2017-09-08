@@ -12,6 +12,8 @@
       <v-icon dark v-else>person_add</v-icon>
     </v-btn>
 
+    
+
     <!-- card in flex -->
     <v-flex xs12 sm8 offset-sm2>
 
@@ -93,13 +95,18 @@ export default{
         //if(fetchedNewsFromApi[i].author != null)
           //console.log(fetchedNewsFromApi[i].author)
 
+        //if(fetchedNewsFromApi[i].publishedAt != null)
+          //console.log(fetchedNewsFromApi[i].publishedAt)
+
           //if(fetchedNewsFromApi[i].publishedAt != null)
-            console.log("publishedAt => " + fetchedNewsFromApi[i].publishedAt)
+            //console.log("publishedAt => " + fetchedNewsFromApi[i].publishedAt)
 
         //discard ads, ads dont have .cms
         if(fetchedNewsFromApi[i].url.lastIndexOf('.cms')!=-1 &&
           fetchedNewsFromApi[i].publishedAt != null &&
+
           fetchedNewsFromApi[i].publishedAt.lastIndexOf('.')==-1){
+            //console.log("publishedAt => " + fetchedNewsFromApi[i].publishedAt)
           //check if pushing duplicate news
           db.ref('checkDuplicateNews/' +
             fetchedNewsFromApi[i].url.slice(fetchedNewsFromApi[i].url.lastIndexOf('/')+1,

@@ -11,12 +11,15 @@ import './assets/cssLib/vuetify.min.css'
 import './assets/cssLib/googleFont.css'
 
 
+
+
 Vue.use(VueFire)
 Vue.use(Vuetify)
 Vue.use(VueResource)
 
 Vue.config.productionTip = false
-function FBfun(path) {
+
+/*function FBfun(path) {
   setTimeout(function() {
 window.fbAsyncInit = function() {
     FB.init({
@@ -36,9 +39,9 @@ window.fbAsyncInit = function() {
    }(document, 'script', 'facebook-jssdk'));
     FB.XFBML.parse();
   }, 100);
-}
+}*/
 
-  
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
