@@ -1,40 +1,12 @@
 <template>
   <div>
 
+    {{getUrl}}
 
-    <v-btn small primary dark flat class="mark-true-but" >
-      <v-icon class="grey--text mark-true-icon">
-        check
-      </v-icon>
-    </v-btn>
-
-    <!--v-btn small primary dark flat class="spam-but" >
-      <v-icon class="grey--text spam-icon">
-        block
-      </v-icon>
-    </v-btn-->
-
-    <v-btn
-      small
-      primary
-      dark
-      flat
-      class="comments-but"
-      @click="goToSpecNewsComments(news)"
-    >
-      <v-icon class="grey--text comments-icon">
-        chat_bubble_outline
-      </v-icon>
-    </v-btn>
-
-
-    <v-btn small primary dark flat class="comments-but" @click="shareNews()">
-      <v-icon class="grey--text comments-icon">
-        share
-      </v-icon>
-    </v-btn>
-
-
+    <div class="fb-like" :data-href="getUrl" data-layout="button_count" data-action="recommend" data-size="small" data-show-faces="false" data-share="false"></div>
+    <div class="fb-share-button" :data-href="getUrl" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse">Share</a></div>
+    <div class="fb-send" :data-href="getUrl"></div>
+    <div class="fb-comments" :data-href="getUrl" data-numposts="1"></div>
 
 
   </div>
@@ -59,23 +31,21 @@ export default{
   //methods
   methods:{
 
-    //shareNews
-    shareNews(){
-      console.log("1")
+  },
 
-      FB.ui({
-        method: 'share',
-        href: 'https://voiceof-nation.firebaseapp.com',
-      }, function(response){
-        console.log("2")
-      });
-
-    },
-
-    //goToSpecNewsComments
-    goToSpecNewsComments(news){
-      this.$router.push('/app-specNewsComments/' + news.key)
+  //computed
+  computed:{
+    getUrl(){
+      let updatedUrl = 'https://voiceof-nation.firebaseapp.com/app-specNews/' +
+          this.news.key
+      //console.log(updatedUrl)
+      return updatedUrl
     }
+  },
+
+  //beforeMount
+  beforeMount(){
+  
   }
 }
 </script>

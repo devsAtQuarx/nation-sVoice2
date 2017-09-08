@@ -12,7 +12,7 @@
       <v-icon dark v-else>person_add</v-icon>
     </v-btn>
 
-    
+
 
     <!-- card in flex -->
     <v-flex xs12 sm8 offset-sm2>
@@ -183,6 +183,9 @@ export default{
         this.$store.state.app_home.showLoader = false
         //console.log("nothing to load more !")
       }
+
+      this.triggerFbSdk()
+
     },
 
     //showOnDom
@@ -207,6 +210,7 @@ export default{
 
         this.$store.state.app_home.newsArr.push(retrievedNewsObj)
       }
+      this.triggerFbSdk()
 
     },
 
@@ -227,6 +231,30 @@ export default{
 
     },
 
+    //triggerFbSdk
+    triggerFbSdk(){
+      //trigger Fb SDK
+      setTimeout(function() {
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId      : '1822465887769751',
+          xfbml      : true,
+          version    : 'v2.1'
+        });
+      };
+
+
+      (function(d, s, id){
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement(s); js.id = id;
+         js.src = "//connect.facebook.net/en_US/sdk.js";
+         fjs.parentNode.insertBefore(js, fjs);
+       }(document, 'script', 'facebook-jssdk'));
+        FB.XFBML.parse();
+      }, 1000);
+    }
+
   },
 
   //beforeMount
@@ -238,6 +266,8 @@ export default{
     if(this.$store.state.app_home.newsArr.length == 0){
       //console.log("call")
       this.getNewsFromApi()
+    }else{
+      this.triggerFbSdk()
     }
 
     //backButton v/s Toolbar
@@ -248,6 +278,7 @@ export default{
     //console.log(this.$store.state.app_header.headerTitle)
     this.$store.state.app_header.headerTitle = "Nation's Voice"
     //console.log(this.$store.state.app_header.headerTitle)
+
   },
 
   //computed

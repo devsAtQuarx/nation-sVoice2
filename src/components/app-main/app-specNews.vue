@@ -10,7 +10,6 @@
 
       <!--Action-->
       <v-card-actions class="card-action-div">
-        <button @click="goToSpecNews(news)">specNews</button>
         <home-newsCardActions></home-newsCardActions>
       </v-card-actions>
 
